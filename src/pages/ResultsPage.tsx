@@ -5,8 +5,9 @@ import { SKILL_CATEGORIES } from '@/lib/skills';
 import type { CategoryKey } from '@/lib/skills';
 import { getEntryById, getHistory, updateEntry, getLiveScore } from '@/lib/history';
 import type { HistoryEntry, SkillConfidence } from '@/lib/history';
+import { buildRoundMapping } from '@/lib/roundMapping';
 import { OverallReadiness } from '@/components/dashboard';
-import { Copy, Download, Check } from 'lucide-react';
+import { Copy, Download, Check, Building2 } from 'lucide-react';
 
 function formatPlan(entry: HistoryEntry): string {
   return entry.plan
@@ -115,6 +116,12 @@ export function ResultsPage() {
   const hasAnySkills = Object.values(entry.extractedSkills).some((arr) => arr.length > 0);
   const liveScore = getLiveScore(entry);
 
+  const companyIntel = entry.companyIntel;
+  const sizeCategory = companyIntel?.sizeCategory ?? 'startup';
+  const roundMapping =
+    entry.roundMapping ??
+    buildRoundMapping(sizeCategory, entry.extractedSkills, entry.jdText);
+
   const practiceSkills = (Object.entries(entry.skillConfidenceMap ?? {}) as [string, SkillConfidence][])
     .filter(([, c]) => c === 'practice')
     .map(([s]) => s);
@@ -135,6 +142,92 @@ export function ResultsPage() {
           <OverallReadiness score={liveScore} />
         </div>
       </div>
+
+      {/* Company Intel block — only when company name provided */}
+      {entry.company.trim() && companyIntel && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-primary" />
+              <CardTitle>Company Intel</CardTitle>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">
+              Demo Mode: Company intel generated heuristically.
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <div>
+                <span className="text-xs font-medium text-gray-500 uppercase">Company</span>
+                <p className="font-medium text-gray-900">{companyIntel.companyName}</p>
+              </div>
+              <div>
+                <span className="text-xs font-medium text-gray-500 uppercase">Industry</span>
+                <p className="text-gray-900">{companyIntel.industry}</p>
+              </div>
+              <div>
+                <span className="text-xs font-medium text-gray-500 uppercase">Estimated size</span>
+                <p className="text-gray-900">
+                  {companyIntel.sizeCategory === 'enterprise'
+                    ? 'Enterprise (2000+)'
+                    : companyIntel.sizeCategory === 'mid-size'
+                      ? 'Mid-size (200–2000)'
+                      : 'Startup (<200)'}
+                </p>
+              </div>
+            </div>
+            <div>
+              <span className="text-xs font-medium text-gray-500 uppercase">Typical Hiring Focus</span>
+              <p className="text-gray-700 text-sm mt-0.5">{companyIntel.hiringFocus}</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Round Mapping — vertical timeline */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Interview Round Flow</CardTitle>
+          <p className="text-sm text-gray-600">
+            Dynamic mapping based on company size and detected skills.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="relative">
+            {roundMapping.map((r, i) => (
+              <div
+                key={r.round}
+                className="relative flex gap-4 pb-6 last:pb-0"
+              >
+                <div className="relative flex shrink-0 flex-col items-center">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-white text-sm font-medium text-primary">
+                    {i + 1}
+                  </div>
+                  {i < roundMapping.length - 1 && (
+                    <div className="absolute top-9 left-1/2 h-full w-px -translate-x-px bg-gray-200" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1 pt-1">
+                  <h4 className="font-medium text-gray-900">{r.round}</h4>
+                  <p className="text-sm text-gray-600 mt-1">{r.whyMatters}</p>
+                  {r.items && r.items.length > 0 && (
+                    <ul className="mt-2 flex flex-wrap gap-1.5">
+                      {r.items.map((item, j) => (
+                        <li
+                          key={j}
+                          className="rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-700"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Key skills with toggles */}
       <Card>

@@ -24,6 +24,8 @@ export function AnalyzerPage() {
       questions: result.questions,
       readinessScore: result.readinessScore,
       fallbackLabel: result.fallbackLabel,
+      companyIntel: result.companyIntel,
+      roundMapping: result.roundMapping,
     });
     navigate('/dashboard/results?id=' + entry.id);
   };

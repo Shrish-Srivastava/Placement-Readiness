@@ -1,5 +1,5 @@
 /**
- * Analysis engine — checklist, plan, questions, readiness score
+ * Analysis engine — checklist, plan, questions, readiness score, company intel, round mapping
  */
 
 import {
@@ -7,6 +7,8 @@ import {
   getDetectedCategories,
   hasAnySkills,
 } from './skills';
+import { inferCompanyIntel } from './companyIntel';
+import { buildRoundMapping } from './roundMapping';
 
 export interface AnalysisInput {
   company: string;
@@ -212,12 +214,26 @@ export interface AnalysisResult {
   questions: string[];
   readinessScore: number;
   fallbackLabel: string;
+  companyIntel?: import('./companyIntel').CompanyIntel;
+  roundMapping?: import('./roundMapping').RoundMappingItem[];
 }
 
 export function runAnalysis(input: AnalysisInput): AnalysisResult {
   const fallbackLabel = hasAnySkills(input.extractedSkills)
     ? ''
     : 'General fresher stack';
+
+  const companyIntel =
+    input.company.trim().length > 0
+      ? inferCompanyIntel(input.company, input.jdText)
+      : undefined;
+
+  const sizeCategory = companyIntel?.sizeCategory ?? 'startup';
+  const roundMapping = buildRoundMapping(
+    sizeCategory,
+    input.extractedSkills,
+    input.jdText
+  );
 
   return {
     extractedSkills: input.extractedSkills,
@@ -226,5 +242,7 @@ export function runAnalysis(input: AnalysisInput): AnalysisResult {
     questions: buildInterviewQuestions(input),
     readinessScore: computeReadinessScore(input),
     fallbackLabel,
+    companyIntel,
+    roundMapping,
   };
 }

@@ -3,6 +3,8 @@
  */
 
 import type { CategoryKey } from './skills';
+import type { CompanyIntel } from './companyIntel';
+import type { RoundMappingItem } from './roundMapping';
 
 export type SkillConfidence = 'know' | 'practice';
 
@@ -19,6 +21,8 @@ export interface HistoryEntry {
   questions: string[];
   readinessScore: number;
   fallbackLabel?: string;
+  companyIntel?: CompanyIntel;
+  roundMapping?: RoundMappingItem[];
 }
 
 const STORAGE_KEY = 'placement-readiness-history';
