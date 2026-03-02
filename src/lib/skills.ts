@@ -27,15 +27,21 @@ export const SKILL_CATEGORIES = {
     label: 'Testing',
     keywords: ['Selenium', 'Cypress', 'Playwright', 'JUnit', 'PyTest', 'Jest'],
   },
+  other: {
+    label: 'Other',
+    keywords: [] as readonly string[],
+  },
 } as const;
 
 export type CategoryKey = keyof typeof SKILL_CATEGORIES;
+
+const DEFAULT_OTHER_SKILLS = ['Communication', 'Problem solving', 'Basic coding', 'Projects'] as const;
 
 export function extractSkills(jdText: string): Record<CategoryKey, string[]> {
   const lower = jdText.toLowerCase();
   const result: Record<string, string[]> = {};
 
-  for (const [key, { keywords }] of Object.entries(SKILL_CATEGORIES)) {
+  for (const [key, { keywords = [] }] of Object.entries(SKILL_CATEGORIES)) {
     const found: string[] = [];
     for (const kw of keywords) {
       const kwLower = kw.toLowerCase();
@@ -46,6 +52,13 @@ export function extractSkills(jdText: string): Record<CategoryKey, string[]> {
       if (matches) found.push(kw);
     }
     result[key] = [...new Set(found)];
+  }
+
+  const hasAny = Object.values(result).some((arr) => arr.length > 0);
+  if (!hasAny) {
+    result.other = [...DEFAULT_OTHER_SKILLS];
+  } else {
+    result.other = result.other ?? [];
   }
 
   return result as Record<CategoryKey, string[]>;

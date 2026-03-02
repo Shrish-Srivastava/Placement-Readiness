@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/shadcn-card';
-import { getHistory, getLiveScore } from '@/lib/history';
+import { getHistory, getLiveScore, getCorruptedCount } from '@/lib/history';
 import { History, Calendar } from 'lucide-react';
 
 export function HistoryPage() {
   const navigate = useNavigate();
   const history = getHistory();
+  const corruptedCount = getCorruptedCount();
 
   return (
     <div className="space-y-6">
@@ -14,6 +15,13 @@ export function HistoryPage() {
         <p className="text-gray-600 text-sm">
           View past JD analyses. Click to open results.
         </p>
+        {corruptedCount > 0 && (
+          <p className="text-sm text-amber-600 mt-2">
+            {corruptedCount === 1
+              ? "One saved entry couldn't be loaded. Create a new analysis."
+              : "Some saved entries couldn't be loaded. Create a new analysis."}
+          </p>
+        )}
       </div>
 
       <Card>

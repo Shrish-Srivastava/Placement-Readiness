@@ -68,8 +68,15 @@ export function AnalyzerPage() {
               onChange={(e) => setJdText(e.target.value)}
               placeholder="Paste the full job description..."
               rows={12}
+              required
+              minLength={1}
               className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary resize-y"
             />
+            {jdText.length > 0 && jdText.length < 200 && (
+              <p className="text-sm text-amber-600 mt-1">
+                This JD is too short to analyze deeply. Paste full JD for better output.
+              </p>
+            )}
             {jdText.length === 0 && (
               <p className="text-sm text-gray-500 mt-1">Job description is required to analyze.</p>
             )}
