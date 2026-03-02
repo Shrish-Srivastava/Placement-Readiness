@@ -6,11 +6,15 @@ import {
   BookOpen,
   User,
   Menu,
+  Search,
+  History,
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', end: true },
+  { to: '/dashboard/analyzer', icon: Search, label: 'JD Analyzer', end: false },
+  { to: '/dashboard/history', icon: History, label: 'History', end: false },
   { to: '/dashboard/practice', icon: Code2, label: 'Practice', end: false },
   { to: '/dashboard/assessments', icon: ClipboardList, label: 'Assessments', end: false },
   { to: '/dashboard/resources', icon: BookOpen, label: 'Resources', end: false },

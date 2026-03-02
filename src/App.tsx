@@ -6,6 +6,9 @@ import { PracticePage } from './pages/PracticePage';
 import { AssessmentsPage } from './pages/AssessmentsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { AnalyzerPage } from './pages/AnalyzerPage';
+import { HistoryPage } from './pages/HistoryPage';
+import { ResultsPage } from './pages/ResultsPage';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
         <Route path="assessments" element={<AssessmentsPage />} />
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="analyzer" element={<AnalyzerPage />} />
+        <Route path="history" element={<HistoryPage />} />
+        <Route path="results" element={<ResultsPage />} />
       </Route>
     </Routes>
   );
