@@ -1,0 +1,397 @@
+/**
+ * KodNest Premium Build System
+ * Component styles — One mind, no drift
+ */
+
+/* ─── LAYOUT ─── */
+
+.kodnest-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.kodnest-page__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.kodnest-page__content {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.kodnest-page__main {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+/* ─── TOP BAR ─── */
+
+.kodnest-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-height);
+  padding: 0 var(--space-4);
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.kodnest-topbar__left {
+  flex: 1;
+}
+
+.kodnest-topbar__project {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.kodnest-topbar__center {
+  flex: 1;
+  text-align: center;
+}
+
+.kodnest-topbar__progress {
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+.kodnest-topbar__right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.kodnest-topbar__status {
+  font-size: var(--text-caption);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.kodnest-topbar__status--not-started {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.kodnest-topbar__status--in-progress {
+  background: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.kodnest-topbar__status--shipped {
+  background: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+/* ─── CONTEXT HEADER ─── */
+
+.kodnest-context-header {
+  margin-bottom: var(--space-3);
+}
+
+.kodnest-context-header__headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-headline);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-headline);
+  margin-bottom: var(--space-1);
+  max-width: var(--max-text-width);
+}
+
+.kodnest-context-header__subtext {
+  font-size: var(--text-body-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: var(--max-text-width);
+}
+
+/* ─── WORKSPACE & PANEL ─── */
+
+.kodnest-workspace {
+  flex: 1;
+  min-width: 0;
+}
+
+.kodnest-panel {
+  width: 100%;
+  max-width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kodnest-panel__explanation p {
+  font-size: var(--text-small);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.kodnest-panel__prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.kodnest-panel__prompt-label {
+  font-size: var(--text-caption);
+  color: var(--color-text-subtle);
+}
+
+.kodnest-panel__prompt-box {
+  padding: var(--space-2);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.kodnest-panel__prompt-box code {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.kodnest-panel__actions,
+.kodnest-panel__feedback {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* ─── PROOF FOOTER ─── */
+
+.kodnest-proof-footer {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.kodnest-proof-footer__checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.kodnest-proof-footer__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.kodnest-proof-footer__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.kodnest-proof-footer__checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.kodnest-proof-footer__input {
+  width: 128px;
+}
+
+/* ─── BUTTONS ─── */
+
+.kodnest-btn {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+
+.kodnest-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.kodnest-btn--primary {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.kodnest-btn--primary:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.kodnest-btn--secondary {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.kodnest-btn--secondary:hover:not(:disabled) {
+  border-color: var(--color-text-subtle);
+  background: var(--color-bg-muted);
+}
+
+.kodnest-btn--sm {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-small);
+}
+
+.kodnest-btn--md {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-body);
+}
+
+/* ─── INPUTS ─── */
+
+.kodnest-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.kodnest-input__label {
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.kodnest-input {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  transition: border-color var(--transition);
+}
+
+.kodnest-input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.kodnest-input:hover {
+  border-color: var(--color-text-subtle);
+}
+
+.kodnest-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.kodnest-input--error {
+  border-color: var(--color-accent);
+}
+
+.kodnest-input__error {
+  font-size: var(--text-small);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.kodnest-input__hint {
+  font-size: var(--text-caption);
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+/* ─── CARDS ─── */
+
+.kodnest-card {
+  padding: var(--space-3);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius);
+}
+
+/* ─── BADGES ─── */
+
+.kodnest-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+}
+
+.kodnest-badge--default {
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
+}
+
+.kodnest-badge--success {
+  background: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+.kodnest-badge--warning {
+  background: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+/* ─── EMPTY STATE ─── */
+
+.kodnest-empty-state {
+  padding: var(--space-5);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.kodnest-empty-state__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-2);
+}
+
+.kodnest-empty-state__description {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+/* ─── ERROR STATE ─── */
+
+.kodnest-error-state {
+  padding: var(--space-3);
+  background: var(--color-accent-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.kodnest-error-state__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-title);
+  margin-bottom: var(--space-1);
+}
+
+.kodnest-error-state__message {
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.kodnest-error-state__fix {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  margin-bottom: var(--space-2);
+}
